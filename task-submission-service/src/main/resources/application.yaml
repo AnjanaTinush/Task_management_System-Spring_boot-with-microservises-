@@ -1,0 +1,16 @@
+server:
+  port: 5003
+
+spring:
+  application:
+    name: SUBMISSION-SERVICE
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true # Show SQL statements
+  datasource:
+    url: jdbc:mysql://localhost:3306/submission_service
+    username: root
+    password: Anjanawwe123#
+    driver-class-name: com.mysql.cj.jdbc.Driver
