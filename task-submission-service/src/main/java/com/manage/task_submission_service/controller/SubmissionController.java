@@ -26,15 +26,26 @@ public class SubmissionController {
     private TaskService taskService;
 
     @PostMapping()
-    public ResponseEntity<Submission>submitTask(
-            @RequestParam Long tsk_id,
+    public ResponseEntity<Submission> submitTask(
+            @RequestParam Long task_id,
             @RequestParam String github_link,
-            @RequestHeader ("Authorization") String jwt
-    ) throws Exception{
+            @RequestHeader("Authorization") String jwt
+    ) throws Exception {
+        if (task_id == null) {
+            throw new IllegalArgumentException("task_id is required");
+        }
+        if (github_link == null || github_link.isEmpty()) {
+            throw new IllegalArgumentException("github_link is required");
+        }
         UserDto user = userService.getUserProfile(jwt);
-        Submission submission = submissionService.submitTask(tsk_id,github_link,user.getId(),jwt);
+        if (user.getId() == null) {
+            throw new Exception("User ID could not be retrieved from the JWT.");
+        }
+        Submission submission = submissionService.submitTask(task_id, github_link, user.getId(), jwt);
         return new ResponseEntity<>(submission, HttpStatus.CREATED);
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Submission>getSubmissionById(

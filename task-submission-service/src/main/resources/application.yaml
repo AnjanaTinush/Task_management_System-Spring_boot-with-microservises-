@@ -4,13 +4,21 @@ server:
 spring:
   application:
     name: SUBMISSION-SERVICE
-
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true # Show SQL statements
+    show-sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/submission_service
     username: root
     password: Anjanawwe123#
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/

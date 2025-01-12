@@ -19,18 +19,19 @@ public class SubmitionServiceImplementation implements SubmissionService{
     private TaskService taskService;
 
     @Override
-    public Submission submitTask(Long taskId, String githubLink, Long userId , String jwt) throws Exception {
-        TaskDto task = taskService.getTaskById(taskId,jwt);
-        if(task!=null){
-            Submission submission=new Submission();
+    public Submission submitTask(Long taskId, String githubLink, Long userId, String jwt) throws Exception {
+        TaskDto task = taskService.getTaskById(taskId, jwt);
+        if (task != null) {
+            Submission submission = new Submission();
             submission.setTaskId(taskId);
             submission.setUserId(userId);
             submission.setGithubLink(githubLink);
             submission.setSubmitionTime(LocalDateTime.now());
             return submitionRepository.save(submission);
         }
-       throw new Exception("Task not found with id :"+taskId);
+        throw new Exception("Task not found with id :" + taskId);
     }
+
 
     @Override
     public Submission getTaskSubmitionBiId(Long submitionId) throws Exception {

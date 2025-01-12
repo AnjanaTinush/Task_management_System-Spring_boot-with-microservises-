@@ -18,9 +18,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/profile")
-    public ResponseEntity<User> getUserProfile(@RequestHeader("Authorization")String jwt){
-
-        User user=userService.getUserProfile(jwt);
+    public ResponseEntity<User> getUserProfile(@RequestHeader("Authorization") String jwt) {
+        User user = userService.getUserProfile(jwt);
+        // Simply return the user object directly
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

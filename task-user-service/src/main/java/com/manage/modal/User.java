@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -21,6 +21,9 @@ public class User {
     private String email;
     private String role;
     private String fullName;
+
+    // No need for explicit getters and setters if @Data is used.
+    //
 
     public String getEmail() {
         return email;
@@ -52,5 +55,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
