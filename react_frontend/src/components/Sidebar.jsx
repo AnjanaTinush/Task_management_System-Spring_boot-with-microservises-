@@ -24,6 +24,7 @@ import {
   IconButton,
   Drawer,
 } from "@mui/material";
+import CreateNewTaskForm from "../Page/Task/CreateNewTaskForm";
 
 const menu = [
   { name: "Home", value: "Home", icon: <Home />, role: ["ROLE_ADMIN", "ROLE_CUSTOMER"] },
@@ -40,7 +41,18 @@ const Sidebar = ({ mode, setMode }) => {
   const [activeMenu, setActiveMenu] = useState("DONE");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const [openCreateTaskForm,setOpenCreateTaskForm] = useState(false);
+  const handleCloseCreateTaskForm=()=>{
+       setOpenCreateTaskForm(false)
+  } 
+  const handleOpenCreateTaskModel=()=>{
+    setOpenCreateTaskForm(true)
+}
+  
   const handleMenuChange = (item) => {
+    if(item.name=="Create new Task"){
+      handleOpenCreateTaskModel()
+    }
     setActiveMenu(item.name);
   };
 
@@ -144,6 +156,9 @@ const Sidebar = ({ mode, setMode }) => {
     </Box>
   );
 
+
+  
+  
   return (
     <>
       {/* Hamburger Icon for Mobile */}
@@ -182,6 +197,7 @@ const Sidebar = ({ mode, setMode }) => {
       >
         {drawerContent}
       </Box>
+      <CreateNewTaskForm open={openCreateTaskForm} handleClose={handleCloseCreateTaskForm}/>
     </>
   );
 };
