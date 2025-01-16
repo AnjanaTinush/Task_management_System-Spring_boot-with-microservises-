@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { login } from '../../ReducToolKit/AuthSlice';
 
 const Signin = () => {
 
+    const dispatch=useDispatch();
     const [formData,setFormData]=useState({
         email:"",
         password:""
@@ -12,10 +15,12 @@ const Signin = () => {
         setFormData({...formData,[name]:value})
     }
 
-    const handleSubmit=(e)=>{
-        e.preventdefauld();
-        console.log("login form",formData)
-    } 
+    const handleSubmit = (e) => {
+      e.preventDefault(); // Correct the typo
+      dispatch(login(formData)); // Trigger the login action
+      console.log("login form", formData);
+  };
+  
 
   return (
     <div>

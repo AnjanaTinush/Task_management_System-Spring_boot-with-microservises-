@@ -25,6 +25,7 @@ import {
   Drawer,
 } from "@mui/material";
 import CreateNewTaskForm from "../Page/Task/CreateNewTaskForm";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const menu = [
   { name: "Home", value: "Home", icon: <Home />, role: ["ROLE_ADMIN", "ROLE_CUSTOMER"] },
@@ -38,6 +39,10 @@ const menu = [
 const role = "ROLE_ADMIN";
 
 const Sidebar = ({ mode, setMode }) => {
+
+  const location=useLocation();
+  const navigate=useNavigate();
+
   const [activeMenu, setActiveMenu] = useState("DONE");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -50,8 +55,19 @@ const Sidebar = ({ mode, setMode }) => {
 }
   
   const handleMenuChange = (item) => {
+       const updatedParams=new URLSearchParams(location.search);
+
     if(item.name=="Create new Task"){
       handleOpenCreateTaskModel()
+    }else if(item.name=="Home"){
+      updatedParams.delete("filter")
+      const queryString=updatedParams.toString();
+      const updatedPath=queryString?`${location.pathname}?${queryString}`
+      :location.pathname;
+      navigate(updatedPath);
+    }else{
+      updatedParams.set("filter",item.value);
+      navigate(`${location.pathname}?${updatedParams.toString()}`)
     }
     setActiveMenu(item.name);
   };
