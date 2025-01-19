@@ -7,19 +7,20 @@ import { fetchTasks } from "./ReducToolKit/TaskSlice";
 import { getUserProfile } from "./ReducToolKit/AuthSlice";
 
 function App() {
+  const user = true;  
   const dispatch = useDispatch();
   const { task, auth } = useSelector((store) => store);
 
   useEffect(() => {
-      if (auth.jwt || localStorage.getItem("jwt")) {
-          dispatch(getUserProfile(auth.jwt || localStorage.getItem("jwt")));
-      }
+     
       dispatch(fetchTasks({}));
-  }, [auth.jwt, dispatch]);
+      dispatch(getUserProfile(auth.jwt || localStorage.getItem("jwt")));
+
+  }, [auth.jwt]);
 
   return (
       <div>
-          {auth.loggedIn && auth.user ? (
+          {auth.user ? (
               <div>
                   <Navbar />
                   <Home />
